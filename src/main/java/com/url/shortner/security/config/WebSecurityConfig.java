@@ -63,7 +63,7 @@ public class WebSecurityConfig {
                     return config;
                 }))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/public/**").permitAll()
                         .requestMatchers("/{shortUrl}").permitAll()
                         .requestMatchers("/api/urls/**").authenticated()
                         .anyRequest().authenticated()
