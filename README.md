@@ -1,116 +1,154 @@
-Linkly – Backend Documentation
-Overview
-The Linkly backend is a scalable URL shortening service built with Spring Boot.
-It provides APIs to generate short URLs, redirect users to original URLs, and track basic analytics such as access count and timestamps.
+🔗 Linkly – Scalable URL Shortening Service
 
-The system is designed with performance, scalability, and clean architecture in mind.
+Linkly is a backend-powered URL shortening service that allows users to generate short, unique, and trackable links for long URLs.
+It is designed with scalability, performance, and clean backend architecture in mind, following industry-standard Spring Boot practices.
 
-Tech Stack
-Java 17
+📌 Project Overview
+
+Long URLs are difficult to:
+Share across platforms
+Track engagement
+Manage efficiently
+Store in a structured format
+
+Linkly solves this by:
+
+Generating short and unique URLs
+Redirecting users instantly
+Ensuring fast lookup performance
+Structuring backend architecture for scalability
+
+🎯 MVP Scope
+
+This version focuses on building a strong backend core with reliable redirection and clean architecture.
+
+✅ Included in MVP
+
+URL shortening endpoint
+Unique short code generation
+Instant redirection API
+Database persistence
+Clean RESTful API design
+Layered architecture
+Global exception handling
+
+🚫 Out of Scope (For Now)
+
+Click analytics dashboard
+User authentication
+Custom alias support
+QR code generation
+Rate limiting
+Expiry-based auto deletion
+
+🧠 Core Features
+1️⃣ URL Shortening
+
+Accepts long URL input
+Generates unique short code
+Stores mapping in database
+Returns shortened URL
+
+Example:
+
+Input:
+https://example.com/very/long/url/path
+
+Output:
+http://localhost:8080/abc123
+2️⃣ Redirection Service
+
+Fast lookup by short code
+302 HTTP redirect to original URL
+Optimized for O(1) database access
+Handles invalid or expired links gracefully
+
+3️⃣ Unique Code Generation Strategy
+
+Random alphanumeric short code
+Collision check before saving
+Can be extended to Base62 encoding
+Designed for horizontal scalability
+
+🏗 System Design Approach
+
+Linkly is built using clean backend engineering practices:
+Architecture Pattern:
+Layered Architecture
+Controller → Service → Repository
+DTO Pattern
+Global Exception Handling
+
+Transaction-safe operations
+
+Data Flow:
+Client sends long URL
+Service generates short code
+URL mapping stored in DB
+User accesses short link
+Server redirects to original URL
+
+🛠 Tech Stack
+Backend:
+
+Java
 Spring Boot
 Spring Web
 Spring Data JPA
+Hibernate
+
+Database:
 MySQL / PostgreSQL
-Maven
 
-Why this stack:
-Proven in high-throughput backend systems
-Easy horizontal scaling
-Production-ready ecosystem
+Architecture:
+RESTful APIs
+Clean Code Principles
+Scalable short-code generation logic
 
-High-Level Architecture
-Client / Browser
-        |
-        | HTTP Request
-        v
-Spring Boot API
-        |
-        | JPA / Cache
-        v
-Database
-
-Design Principles
-Stateless REST APIs
-Separation of concerns
-Database-first consistency
-Optimized read path for redirects
-Extensible for analytics & auth
-
-Project Structure
-src/main/java/com/linkly
+📂 Project Structure
+linkly/
 │
-├── controller        # REST endpoints
-├── service           # Business logic
-├── repository        # Database access
-├── model             # Entities
-├── dto               # Request/Response DTOs
-├── exception         # Global exception handling
-├── config            # App & cache configs
-└── util              # Utility classes (hashing, encoding)
+├── src/
+│   ├── controller/
+│   ├── service/
+│   ├── repository/
+│   ├── entity/
+│   ├── dto/
+│   ├── exception/
+│
+├── docs/
+│
+└── README.md
+🔐 Non-Functional Goals
 
+Fast redirection response time
+Clean and maintainable architecture
+Easy extensibility for analytics
+Scalable short-code generation
+Production-ready backend structure
 
-This structure mirrors real-world Spring Boot services.
-Core Features
-URL Shortening
-Accepts long URLs
-Generates unique short codes
-Persists mapping in database
-URL Redirection
-Resolves short code to original URL
-Performs fast HTTP redirect
-Handles invalid or expired links
-Analytics (Basic)
-Redirect count
-Created timestamp
-Last accessed timestamp
+🚀 Project Status
 
-URL Shortening Strategy
-Short Code Generation
+✔ Core shortening logic completed
+✔ Redirection API completed
+✔ Database integration completed
+⏳ Analytics and advanced features planned
 
-Strategies used:
-Base62 encoding
-Random alphanumeric string
-Collision check before persistence
+📈 Resume Value
 
-Collision handling:
-Retry generation
-Enforced DB uniqueness constraint
+This project demonstrates:
 
-Database Design
-URL Entity
-Key fields:
-id
-originalUrl
-shortCode (unique)
-createdAt
-expiresAt (optional)
-redirectCount
-Indexes:
-Unique index on shortCode
-Index on createdAt for analytics
+Backend system design thinking
+REST API development
+Database indexing strategy
+URL mapping architecture
+Collision handling logic
+Scalable short-code generation
 
-Redirection Flow
-User accesses short URL
-Backend extracts short code
-Lookup in cache or database
-Increment redirect count
-Redirect to original URL
+Clean Spring Boot architecture
 
-Optimized for:
-High read traffic
-Low latency
+👨‍💻 Author
 
-Exception Handling
-Centralized global exception handling ensures consistent responses.
-
-Handled cases:
-Invalid short URL
-Expired links
-Malformed input URLs
-Resource not found
-
-API Design
-RESTful endpoints
-Proper HTTP status codes
-DTO-based validation
-Clean request/response models
+Mahesh
+Backend Developer | Java & Spring Boot Enthusiast
+Focused on building scalable backend systems and production-ready APIs.
